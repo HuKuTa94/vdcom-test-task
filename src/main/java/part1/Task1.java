@@ -23,8 +23,11 @@ public class Task1
         while( true )
         {
             try {
-                firstNumber = getNumberFromInput( "Введите первое число больше 0: ", 0 );
-                secondNumber = getNumberFromInput( "Введите первое число больше " + firstNumber + ": ", firstNumber );
+                System.out.println( "Введите первое число больше 0: " );
+                firstNumber = getNumberFromInput( 0 );
+
+                System.out.println( "Введите первое число больше " + firstNumber + ": " );
+                secondNumber = getNumberFromInput( firstNumber );
 
                 System.out.println( "\nРешение 1. Используя цикл и ветвления" );
                 solution1( firstNumber, secondNumber );
@@ -38,8 +41,7 @@ public class Task1
         }
     }
 
-    private static int getNumberFromInput( String message, int lowBoundary ) {
-        System.out.println( message );
+    private static int getNumberFromInput( int lowBoundary ) {
         int number = scanner.nextInt();
         if( !validateInput( lowBoundary, number )) {
             throw new IllegalArgumentException( "Вы ввели недопустимое число! Оно должно быть больше числа " + lowBoundary );
