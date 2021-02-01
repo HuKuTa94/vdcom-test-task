@@ -1,9 +1,6 @@
 package part1;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -16,10 +13,15 @@ class Task1Test
 
     private ByteArrayOutputStream output;
 
-    @BeforeEach
-    void resetOutput() {
+    // Init tests
+    Task1Test() {
         output = new ByteArrayOutputStream();
         System.setOut( new PrintStream( output ));
+    }
+
+    @BeforeEach
+    void resetOutput() {
+        output.reset();
     }
 
     @Test
