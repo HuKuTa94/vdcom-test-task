@@ -15,17 +15,17 @@ public class ApiTodoController
     private TodoService service;
 
     @GetMapping
-    public List<TodoEntity> getAll() {
-        return service.getAll();
+    public List<TodoEntity> getTodoList() {
+        return service.findAll();
     }
 
     @PostMapping
-    public TodoEntity add( @RequestBody TodoEntity newTodo ) {
-        return service.add( newTodo );
+    public TodoEntity addNewTodo( @RequestBody TodoEntity newTodo ) {
+        return service.save( newTodo );
     }
 
     @PutMapping( "{id}" )
-    public void updateById(
+    public void updateTodoById(
             @PathVariable( "id" ) long id,
             @RequestBody TodoEntity todo )
     {
@@ -33,7 +33,7 @@ public class ApiTodoController
     }
 
     @DeleteMapping( "{id}" )
-    public void deleteById( @PathVariable( "id" ) long id ) {
+    public void deleteTodoById( @PathVariable( "id" ) long id ) {
         service.deleteById( id );
     }
 }
