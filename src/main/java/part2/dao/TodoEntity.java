@@ -25,11 +25,11 @@ public class TodoEntity
     private String text;
 
     @NonNull
-    @Column( name = "is_done" )
-    private boolean isDone;
+    @Column( name = "done" )
+    private boolean done;
 
     void updateFields( TodoEntity newTodo ) {
         this.text = newTodo.text;
-        this.isDone = newTodo.isDone;
+        this.done = newTodo.done;
     }
 }

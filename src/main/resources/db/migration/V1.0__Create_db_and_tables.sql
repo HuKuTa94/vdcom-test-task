@@ -5,6 +5,6 @@ USE `vdcom-test-task`;
 CREATE TABLE IF NOT EXISTS `todo_list` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `text` VARCHAR(255) NOT NULL,
-    `is_done` TINYINT NOT NULL,
+    `done` BIT NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE = INNODB;
