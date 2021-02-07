@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<head>
+    <meta charset="UTF-8" />
+    <title>Список дел</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css"/>
+    <script src="/js/index.js"></script>
+</head>
+<body onload="onload()">
+    <div>
+        <label id="new-todo-file-title">Загрузить список дел из .csv файла</label>
+        <br>
+        <button onclick="addTodoFromFile()">Загрузить файл</button>
+        <input id="new-todo-file" type="file" name="file"/>
+    </div>
+    <br>
+    <div>
+        <label id="new-todo-title">Новое дело</label>
+        <br>
+        <label>
+            <input id="new-todo-text" type="text" placeholder="Введите описание дела" size="40"/>
+            <input id="new-todo-checkbox" type="checkbox"/>
+            <button onclick="addNewTodo()">Добавить</button>
+        </label>
+    </div>
+    <br>
+    <div>
+        <label id="todo-list-title"></label>
+        <div id="todo-list"></div>
+    </div>
+</body>
+</html>
