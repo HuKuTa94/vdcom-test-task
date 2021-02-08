@@ -16,21 +16,46 @@ function onload() {
 }
 
 // ---------------------------------------------- REQUEST API METHODS --------------------------------------------------
-function getTodoListFromServer() {
-    fetch( url, { method: 'GET' })
-        .then( resp => { return resp.json() })
-        .then( respBody => {
-            for( let i = 0; i < respBody.length; i++ ) {
-                addTodoElementInDOM( respBody[i] );
-            }
-            setTodoListTitle();
+function sendRequestAndGetResponse( url, init ) {
+    return fetch( url, init )
+        .then( responseBody => {
+            return responseBody.json();
         });
 }
 
-//TODO добавить отправку файла на сервер и реализовать бекенд на сервере
+function displayResultFromResponse( response ) {
+    // Response as array
+    if( Array.isArray( response )) {
+        for( let i = 0; i < response.length; i++ ) {
+            addTodoElementInDOM( response[ i ]);
+        }
+    }
+    // Response as single element
+    else {
+        addTodoElementInDOM( response );
+    }
+    setTodoListTitle();
+}
+
+function getTodoListFromServer() {
+    sendRequestAndGetResponse( url, { method: 'GET' })
+        .then( response => {
+            displayResultFromResponse( response );
+    })
+}
+
 function addTodoFromFile() {
-    let file = newTodoFile.files[0];
-    newTodoFile.value = '';
+    let file = newTodoFile.files[ 0 ];
+    let formData = new FormData();
+    formData.append( "file", file );
+
+    sendRequestAndGetResponse( url + '/file', {
+        method: 'POST',
+        body: formData
+    }).then( response => {
+        displayResultFromResponse( response );
+        newTodoFile.value = '';
+    })
 }
 
 function addNewTodo() {
@@ -39,22 +64,15 @@ function addNewTodo() {
         done: newTodoCheckbox.checked,
         id: null
     };
-    fetch( url, {
+    sendRequestAndGetResponse( url, {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify( data ),
         headers: { 'Content-Type': 'application/json' }
-    })
-    .then( resp => {
-        // Reset form inputs
+    }).then( response => {
+        displayResultFromResponse( response );
         newTodoText.value = '';
         newTodoCheckbox.checked = false;
-        return resp.json() })
-    .then( respBody => {
-        // Add new todo in list
-        data.id = respBody.id;
-        addTodoElementInDOM( data );
-        setTodoListTitle();
-    });
+    })
 }
 
 function updateTodoById( id ) {
@@ -70,7 +88,6 @@ function updateTodoById( id ) {
         done: checkboxInput.checked
     };
     const request = url + '/' + id;
-    console.log( data, request );
     fetch( request, {
         method: 'PUT',
         body: JSON.stringify( data ),
