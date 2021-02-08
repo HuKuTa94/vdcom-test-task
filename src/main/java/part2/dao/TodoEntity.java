@@ -32,4 +32,9 @@ public class TodoEntity
         this.text = newTodo.text;
         this.done = newTodo.done;
     }
+
+    TodoEntity( String text, boolean done ) {
+        this.text = text;
+        this.done = done;
+    }
 }

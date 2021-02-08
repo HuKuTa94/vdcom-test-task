@@ -1,7 +1,9 @@
 package part2.web;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import part2.dao.TodoEntity;
 import part2.dao.TodoService;
 
@@ -35,5 +37,10 @@ public class ApiTodoController
     @DeleteMapping( "{id}" )
     public void deleteTodoById( @PathVariable( "id" ) long id ) {
         service.deleteById( id );
+    }
+
+    @PostMapping( value = "/file", consumes = { "multipart/form-data" })
+    public ResponseEntity uploadTodoListFromFile( @RequestParam( "file" ) MultipartFile multipartFile ) {
+        return service.uploadTodoListFromFile( multipartFile );
     }
 }
